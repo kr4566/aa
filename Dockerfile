@@ -1,9 +1,8 @@
-# You can change this to a different version of Wordpress available at
-# https://hub.docker.com/_/wordpress
-FROM wordpress:5.3.2-apache
+FROM PAVI4566:kali/v1
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get -y install \
+    python3 python3-dev python3-dev python3-pip python3-venv novnc x11vnc
 
-RUN apt-get update && apt-get install -y magic-wormhole
+RUN x11vnc -display :0 -autoport -localhost -nopw -bg -xkb -ncache -ncache_cr -quiet -forever
 
-RUN usermod -s /bin/bash www-data
-RUN chown www-data:www-data /var/www
-USER www-data:www-data
+ENTRYPOINT /usr/share/novnc/utils/novnc_proxy --listen 8081 --vnc localhost:5900
