@@ -1,4 +1,4 @@
-FROM pavi4566:kali
+FROM pavi4566/kali:v1
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y install \
     python3 python3-dev python3-dev python3-pip python3-venv novnc x11vnc
